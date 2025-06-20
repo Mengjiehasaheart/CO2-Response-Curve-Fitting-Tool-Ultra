@@ -8,10 +8,8 @@ import sys
 from scipy.optimize import curve_fit
 from typing import Dict, Tuple, Optional
 
-# Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-# Page configuration
 st.set_page_config(
     page_title="Mengjie's Premium CO2 Response Analysis Tool",
     page_icon="leaf",
@@ -19,7 +17,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Try importing ACI_py modules
 try:
     from aci_py.io.licor import read_licor_file
     from aci_py.analysis.c3_fitting import fit_c3_aci
@@ -34,14 +31,12 @@ except ImportError as e:
     MODULES_AVAILABLE = False
 
 
-# Try importing smart quality checker
 try:
     from aci_py.gui.smart_quality import SmartQualityChecker, QualityIssue
     SMART_QUALITY_AVAILABLE = True
 except ImportError:
     SMART_QUALITY_AVAILABLE = False
 
-# Try importing visualization utilities
 try:
     from aci_py.gui.visualization_utils import (
         plot_aci_with_confidence_intervals,
@@ -1722,7 +1717,7 @@ with tab5:
                     for param, (lower, upper) in result_data['confidence_intervals'].items():
                         st.write(f"{param}: [{lower:.2f}, {upper:.2f}]")
             
-            # Plot the curve
+            
             if 'data' in result_data:
                 fig = plot_aci_curve(result_data['data'], result_data)
                 st.pyplot(fig)
